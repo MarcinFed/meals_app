@@ -23,8 +23,18 @@ class MealDetailsScreen extends ConsumerWidget {
         ),
         actions: [
           IconButton(
-            icon: Icon(
-              isFavorite ? Icons.star : Icons.star_border,
+            icon: AnimatedSwitcher(
+              duration: const Duration(milliseconds: 300),
+              transitionBuilder: (child, animation) {
+                return RotationTransition(
+                  turns: Tween<double>(begin: 0.8, end: 1).animate(animation),
+                  child: child,
+                );
+              },
+              child: Icon(
+                isFavorite ? Icons.star : Icons.star_border,
+                key: ValueKey(isFavorite),
+              ),
             ),
             onPressed: () {
               final wasAdded = ref
@@ -48,11 +58,24 @@ class MealDetailsScreen extends ConsumerWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Image.network(
-              meal.imageUrl,
-              width: double.infinity,
-              height: 300,
-              fit: BoxFit.cover,
+            Hero(
+              tag: meal.id,
+              child: Padding(
+                padding: const EdgeInsets.all(8),
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  clipBehavior: Clip.hardEdge,
+                  elevation: 2,
+                  child: Image.network(
+                    meal.imageUrl,
+                    width: double.infinity,
+                    height: 300,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
             ),
             const SizedBox(height: 14),
             Text(
