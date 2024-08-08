@@ -61,7 +61,7 @@ class MealDetailsScreen extends ConsumerWidget {
             Hero(
               tag: meal.id,
               child: Padding(
-                padding: const EdgeInsets.all(8),
+                padding: const EdgeInsets.all(4),
                 child: Card(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15),
